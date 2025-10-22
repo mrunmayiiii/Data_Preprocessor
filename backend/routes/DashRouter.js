@@ -1,5 +1,5 @@
 const { ensureAuthenticated } = require("../middlewares/authMiddleware");
-const { uploaddoc,uploadedDataset,preprocessing,postProcessedDataset,downloadfile} =require("../controllers/preprocessedDataset")
+const { uploaddoc,uploadedDataset,preprocessing,postProcessedDataset, downloadAnyDataset,} =require("../controllers/preprocessedDataset")
 const upload = require("../middlewares/multerConfig");
 const router=require("express").Router();
 const multer = require("multer");
@@ -14,12 +14,11 @@ router.get('/',ensureAuthenticated,(req,res)=>{
     })
 });
 
-router.post("/upload",ensureAuthenticated,uploaddoc);
-router.get("/uploadedDataset",ensureAuthenticated,uploadedDataset);
+router.post("/upload",ensureAuthenticated,upload.single("file"),uploaddoc);
+router.get("/uploadedDataset",ensureAuthenticated, uploadedDataset);
 router.post("/preprocessdata",ensureAuthenticated,preprocessing);
 router.get("/postprocessed",ensureAuthenticated,postProcessedDataset);
-router.post("/download",ensureAuthenticated,downloadfile);
-
+router.get("/:datasetId/download", ensureAuthenticated, downloadAnyDataset);
 
 
 

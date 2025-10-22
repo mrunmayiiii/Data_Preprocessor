@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { 
   Upload, 
   File, 
@@ -91,22 +92,9 @@ const UploadDataset = () => {
       fileType: fileType
     };
 
-    // Simulate upload process
-    setTimeout(() => {
-      setUploading(false);
-      alert('Dataset uploaded successfully!');
-      console.log('Upload Data:', uploadData);
-      
-      // Reset form
-      setFile(null);
-      setDatasetName('');
-      setDescription('');
-      setPreprocessingSteps([]);
-      setCurrentStep('');
-    }, 2000);
-
+    const token = localStorage.getItem('token');
     // Uncomment for real API call:
-    /*
+    
     const formData = new FormData();
     formData.append("file", file);
     formData.append("description", description);
@@ -115,9 +103,12 @@ const UploadDataset = () => {
     formData.append("fileType", fileType);
 
     try {
-      const res = await axios.post("/api/dashboard/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await axios.post("http://localhost:8000/api/dashboard/upload", formData, {
+  headers: {
+    "Content-Type": "multipart/form-data",
+    "Authorization": token, // ✅ inside headers
+  },
+});
       setUploading(false);
       alert("Dataset uploaded successfully!");
       console.log(res.data);
@@ -131,7 +122,7 @@ const UploadDataset = () => {
       alert("Upload failed");
       console.error(error);
     }
-    */
+    
   };
 
   const removeFile = () => {

@@ -1,27 +1,25 @@
 const multer = require("multer");
+const path = require("path");
 
 // Configure storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null,  path.join(__dirname, "../uploads")); // save inside uploads folder
   },
   filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
+    const ext = path.extname(file.originalname);
+    const uniqueName = Date.now() + "-" + file.originalname;
+    cb(null, uniqueName);
+  }
 });
 
-// File filter
+// File filter (optional)
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = [
-    "application/json",
-    "application/vnd.ms-excel",
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    "text/csv"
-  ];
+  const allowedTypes = ["text/csv", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Only .json, .csv, .xls, and .xlsx formats are allowed"), false);
+    cb(new Error("Invalid file type. Only CSV or Excel files are allowed."), false);
   }
 };
 

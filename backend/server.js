@@ -7,7 +7,7 @@ const app=express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 //routes
 const authRoutes = require("./routes/authRoutes");
 const DashRouter = require("./routes/DashRouter");
