@@ -1,0 +1,12 @@
+
+pandas
+numpy
+openpyxl         
+xlrd              
+pyyaml            
+
+scikit-learn
+scipy
+flask             
+
+python-multipart  
