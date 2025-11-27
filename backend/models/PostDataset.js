@@ -10,7 +10,7 @@ const PostDataset = new mongoose.Schema(
 
         datasetId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "BeforePreprocessing",
+            ref: "PreDataset",
             required: true
         }, // original dataset reference
 
@@ -34,7 +34,7 @@ const PostDataset = new mongoose.Schema(
 
         beforeDatasetId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "BeforePreprocessing",
+           ref: "PreDataset",
             required: true
         } // extra explicit relation
     },

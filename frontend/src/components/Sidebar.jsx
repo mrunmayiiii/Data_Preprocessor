@@ -6,7 +6,8 @@ import {
   FileCheck,
   Database,
   X,
-  LogOut
+  LogOut,
+  FileText
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -22,7 +23,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     {
       name: 'View Datasets',
       path: '/dashboard/preprocess',
-      icon: Home,
+      icon: FileText,
       exact: true
     },
     {
@@ -62,14 +63,14 @@ const Sidebar = ({ isOpen, onClose }) => {
 
       {/* Sidebar */}
       <aside
-        className={`
-          fixed lg:static inset-y-0 left-0 z-50
-          w-64 h-screen bg-white border-r border-gray-200
-          transform transition-transform duration-300 ease-in-out
-          ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-          flex flex-col overflow-hidden
-        `}
-      >
+  className={`
+    fixed lg:static inset-y-0 left-0 z-50
+    w-64 min-h-screen bg-white border-r border-gray-200
+    transform transition-transform duration-300 ease-in-out
+    ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+    flex flex-col overflow-hidden
+  `}
+>
         {/* Logo/Brand */}
         <div className="p-6 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
           <div className="flex items-center space-x-3">

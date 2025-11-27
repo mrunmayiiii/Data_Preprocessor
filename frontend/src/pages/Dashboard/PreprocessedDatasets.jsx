@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import { 
   File, 
   Trash2, 
@@ -38,6 +40,30 @@ const UploadedDatasets = () => {
       setLoading(false);
     }
   };
+  const handleDownload = async (id, name, type) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      `http://localhost:8000/api/dashboard/downloadog/${id}`,
+      {
+        headers: { Authorization: token },
+        responseType: "blob", // important for binary data
+      }
+    );
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `${name}.${type}`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (error) {
+    console.error("Download failed:", error);
+    alert("Failed to download file.");
+  }
+};
+
 
 
 
@@ -163,16 +189,14 @@ const UploadedDatasets = () => {
 
                 {/* Actions */}
                 <div className="flex gap-2 pt-4 border-t border-gray-200">
-                  <a
-                    href={dataset.file}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-white transition-colors"
-                    style={{ backgroundColor: '#9FB3DF' }}
-                  >
-                    <FileText size={16} />
-                    <span>Open</span>
-                  </a>
+               <button
+                onClick={() => handleDownload(dataset._id, dataset.datasetName, dataset.fileType)}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-white transition-colors"
+                style={{ backgroundColor: '#9FB3DF' }}
+              >
+                <FileText size={16} />
+                <span>Download</span>
+              </button>
                  
                 
                 </div>

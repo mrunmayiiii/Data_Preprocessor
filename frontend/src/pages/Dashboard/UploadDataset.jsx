@@ -136,15 +136,14 @@ const UploadDataset = () => {
   };
 
   // Common preprocessing step suggestions
-  const suggestedSteps = [
-    "Remove duplicates",
-    "Handle missing values",
-    "Normalize data",
-    "Remove outliers",
-    "Feature scaling",
-    "Data validation",
-    "Type conversion"
-  ];
+ const suggestedSteps = [
+  "clean_missing",
+  "clean_duplicates",
+  "remove_outliers",
+  "transform_scale",
+  "transform_encode",
+  "split"
+];
 
   return (
     <div className="min-h-screen p-6" style={{ backgroundColor: '#FFF1D5' }}>

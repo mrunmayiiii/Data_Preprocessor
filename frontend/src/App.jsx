@@ -12,6 +12,7 @@ import RefrshHandler from './RefrshHandler'
 import UploadDataset from './pages/Dashboard/UploadDataset'
 import ViewProcessedDatasets from './pages/Dashboard/ViewProcessedDatasets'
 import PreprocessedDatasets from './pages/Dashboard/PreprocessedDatasets'
+import DashboardHome from './pages/Dashboard/DashboardHome';
 function App() {
  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -37,10 +38,12 @@ function App() {
           element= {<Signup/>}
           />
          <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="preprocess" element={<PreprocessedDatasets />} />
-          <Route path="upload" element={<UploadDataset />} />
-          <Route path="processed" element={<ViewProcessedDatasets />} />
-        </Route>
+        <Route index element={<DashboardHome />} />  {/* ✅ Dashboard home */}
+        <Route path="preprocess" element={<PreprocessedDatasets />} />
+        <Route path="upload" element={<UploadDataset />} />
+        <Route path="processed" element={<ViewProcessedDatasets />} />
+      </Route>
+
            
         </Routes>
       </Router>
